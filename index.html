@@ -978,17 +978,19 @@
           </defs>
 
           <!-- back disc sliding into sleeve (drawn BEFORE the sleeve so it sits under/behind the cover).
-               Slide uses native SMIL animateTransform so it works reliably on SVG groups. -->
+               Slide uses native SMIL animateTransform so it works reliably on SVG groups.
+               Tucked base: translate(160 60) → disc center at x=320 (mostly hidden behind cover).
+               Slide delta: +160 on X → disc center at x=480, right edge at x=640 (exactly at viewBox edge, no clipping). -->
           <g>
             <animateTransform attributeName="transform"
                               type="translate"
-                              values="260 0; 0 0; 0 0; 260 0"
+                              values="160 0; 0 0; 0 0; 160 0"
                               keyTimes="0; 0.28; 0.72; 1"
                               dur="6.5s"
                               calcMode="spline"
                               keySplines="0.22 0.61 0.36 1; 0 0 1 1; 0.42 0 0.7 0.4"
                               repeatCount="indefinite"/>
-            <g transform="translate(240 60)">
+            <g transform="translate(160 60)">
               <g class="vinyl-disc">
                 <circle cx="160" cy="160" r="160" fill="url(#disc)"/>
                 <circle cx="160" cy="160" r="160" fill="url(#grooves)" opacity="0.55"/>
