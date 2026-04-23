@@ -298,19 +298,8 @@
     transform-origin: center;
     animation: spin 22s linear infinite;
   }
-  @keyframes slideIn {
-    0%   { transform: translateX(260px); }
-    22%  { transform: translateX(0); }
-    78%  { transform: translateX(0); }
-    100% { transform: translateX(260px); }
-  }
-  .vinyl-slide {
-    transform-box: fill-box;
-    transform-origin: center;
-    animation: slideIn 7s cubic-bezier(0.22, 0.61, 0.36, 1) infinite;
-  }
   @media (prefers-reduced-motion: reduce) {
-    .vinyl-slide, .vinyl-disc { animation: none; }
+    .vinyl-disc { animation: none; }
   }
 
   /* ===== Narrative ===== */
@@ -988,23 +977,32 @@
             </radialGradient>
           </defs>
 
-          <!-- back disc sliding into sleeve (drawn BEFORE the sleeve so it sits under/behind the cover) -->
-          <g class="vinyl-slide">
-            <g transform="translate(260 70)">
+          <!-- back disc sliding into sleeve (drawn BEFORE the sleeve so it sits under/behind the cover).
+               Slide uses native SMIL animateTransform so it works reliably on SVG groups. -->
+          <g>
+            <animateTransform attributeName="transform"
+                              type="translate"
+                              values="260 0; 0 0; 0 0; 260 0"
+                              keyTimes="0; 0.28; 0.72; 1"
+                              dur="6.5s"
+                              calcMode="spline"
+                              keySplines="0.22 0.61 0.36 1; 0 0 1 1; 0.42 0 0.7 0.4"
+                              repeatCount="indefinite"/>
+            <g transform="translate(240 60)">
               <g class="vinyl-disc">
-                <circle cx="140" cy="140" r="140" fill="url(#disc)"/>
-                <circle cx="140" cy="140" r="140" fill="url(#grooves)" opacity="0.55"/>
+                <circle cx="160" cy="160" r="160" fill="url(#disc)"/>
+                <circle cx="160" cy="160" r="160" fill="url(#grooves)" opacity="0.55"/>
                 <!-- outer groove rings -->
-                <circle cx="140" cy="140" r="135" fill="none" stroke="rgba(40,20,10,0.18)" stroke-width="0.4"/>
-                <circle cx="140" cy="140" r="115" fill="none" stroke="rgba(40,20,10,0.18)" stroke-width="0.4"/>
-                <circle cx="140" cy="140" r="92"  fill="none" stroke="rgba(40,20,10,0.2)"  stroke-width="0.4"/>
+                <circle cx="160" cy="160" r="154" fill="none" stroke="rgba(40,20,10,0.18)" stroke-width="0.5"/>
+                <circle cx="160" cy="160" r="132" fill="none" stroke="rgba(40,20,10,0.18)" stroke-width="0.5"/>
+                <circle cx="160" cy="160" r="106" fill="none" stroke="rgba(40,20,10,0.2)"  stroke-width="0.5"/>
                 <!-- label -->
-                <circle cx="140" cy="140" r="44" fill="#c2525c"/>
-                <circle cx="140" cy="140" r="36" fill="#8c3440"/>
-                <text x="140" y="132" text-anchor="middle" font-family="Inter, sans-serif" font-size="7" letter-spacing="2" fill="#f6d5da">UNIVERSAL</text>
-                <text x="140" y="148" text-anchor="middle" font-family="Inter, sans-serif" font-weight="300" font-size="11" fill="#f6d5da">MBF · 33⅓</text>
-                <text x="140" y="158" text-anchor="middle" font-family="Inter, sans-serif" font-size="5" letter-spacing="1.2" fill="#f6d5da" opacity="0.8">SABRINA CARPENTER</text>
-                <circle cx="140" cy="140" r="2.4" fill="#1b0609"/>
+                <circle cx="160" cy="160" r="50" fill="#c2525c"/>
+                <circle cx="160" cy="160" r="40" fill="#8c3440"/>
+                <text x="160" y="150" text-anchor="middle" font-family="Inter, sans-serif" font-size="8" letter-spacing="2.2" fill="#f6d5da">UNIVERSAL</text>
+                <text x="160" y="169" text-anchor="middle" font-family="Inter, sans-serif" font-weight="300" font-size="13" fill="#f6d5da">MBF · 33⅓</text>
+                <text x="160" y="181" text-anchor="middle" font-family="Inter, sans-serif" font-size="6" letter-spacing="1.4" fill="#f6d5da" opacity="0.85">SABRINA CARPENTER</text>
+                <circle cx="160" cy="160" r="2.8" fill="#1b0609"/>
               </g>
             </g>
           </g>
